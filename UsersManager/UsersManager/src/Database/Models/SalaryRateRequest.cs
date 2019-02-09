@@ -14,7 +14,7 @@ namespace UsersManager.Database.Models
     
     public class SalaryRateRequest
     {
-        public string Guid { get; set; }
+        public Guid Guid { get; set; }
         [ForeignKey("User")] 
         public int UserId { get; set; }
         public User User { get; set; }

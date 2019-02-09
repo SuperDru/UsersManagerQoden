@@ -12,14 +12,7 @@ using UsersManager.DtoModels;
 using UsersManager.Services;
 
 namespace UsersManager.Controllers
-{
-    public class UserManagerId
-    {
-        public int UserId { get; set; }
-
-        public int ManagerId { get; set; }
-    }
-    
+{ 
     [Route("account")]
     public class UserController : Controller
     {

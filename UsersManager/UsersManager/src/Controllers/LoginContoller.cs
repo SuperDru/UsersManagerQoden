@@ -12,16 +12,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UsersManager.Database;
 using UsersManager.Database.Models;
+using UsersManager.DtoModels;
 using UsersManager.Services;
 
 namespace UsersManager.Controllers
-{
-    public class UserCredentials
-    {
-        public string Nickname { get; set; }
-        public string Password { get; set; }
-    }
-    
+{   
     [Route("/account")]
     public class LoginController : Controller
     {
