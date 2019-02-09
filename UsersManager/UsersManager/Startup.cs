@@ -33,6 +33,7 @@ namespace UsersManager
             services.AddScoped<ISalaryRatesService, SalaryRatesService>();
 
             ConfigureDatabase(services);
+            ConfigureAutoMapper(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -53,6 +54,20 @@ namespace UsersManager
             {
                 options.UseNpgsql(Configuration["Database:ConnectionString"]);
             }); 
+        }
+
+        private static void ConfigureAutoMapper(IServiceCollection services)
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UserRateRequestRequest, SalaryRateRequest>();
+                cfg.CreateMap<SalaryRateRequest, UserRateRequestAnswer>();
+                cfg.CreateMap<SalaryRateRequest, ManagerRateRequestAnswer>();
+                cfg.CreateMap<User, UserProfile>();
+                cfg.CreateMap<UserProfile, User>();
+            }).CreateMapper();
+            
+            services.AddSingleton(mapper);
         }
     }
 }

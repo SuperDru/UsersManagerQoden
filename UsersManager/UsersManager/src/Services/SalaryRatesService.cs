@@ -25,26 +25,24 @@ namespace UsersManager.Services
     {
         private readonly CompanyDbContext _dbContext;
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
         
-        public SalaryRatesService(IUserService userService, CompanyDbContext context)
+        public SalaryRatesService(IUserService userService, CompanyDbContext context, IMapper mapper)
         {
             _dbContext = context;
             _userService = userService;
+            _mapper = mapper;
         }
         
         public async Task CreateSalaryRequest(UserRateRequestRequest request)
         {   
-            var mapper = new MapperConfiguration(
-                cfg => cfg.CreateMap<UserRateRequestRequest, SalaryRateRequest>())
-                .CreateMapper();
-
             var user = await _userService.GetUser(request.UserId);
 
             if (user != null && user.ManagerId != 0)
             {
-                var req = mapper.Map<SalaryRateRequest>(request);
+                var req = _mapper.Map<SalaryRateRequest>(request);
 
-                req.Guid = Guid.NewGuid().ToString();
+                req.Guid = Guid.NewGuid();
                 req.ManagerId = user.ManagerId;
                 req.Status = Status.Pending;
 
@@ -58,22 +56,14 @@ namespace UsersManager.Services
         {
             var requests = await _dbContext.SalaryRateRequests.Where(s => s.UserId == userId).ToListAsync();
             
-            var mapper = new MapperConfiguration(
-                    cfg => cfg.CreateMap<SalaryRateRequest, UserRateRequestAnswer>())
-                .CreateMapper();
-            
-            return requests.ConvertAll(req => mapper.Map<UserRateRequestAnswer>(req));
+            return requests.ConvertAll(req => _mapper.Map<UserRateRequestAnswer>(req));
         }
 
         public async Task<ICollection<ManagerRateRequestAnswer>> GetManagerSalaryRateRequests(int managerId)
         {
             var requests = await _dbContext.SalaryRateRequests.Where(s => s.ManagerId == managerId).ToListAsync();
-            
-            var mapper = new MapperConfiguration(
-                    cfg => cfg.CreateMap<SalaryRateRequest, ManagerRateRequestAnswer>())
-                .CreateMapper();
 
-            return requests.ConvertAll(req => mapper.Map<ManagerRateRequestAnswer>(req));
+            return requests.ConvertAll(req => _mapper.Map<ManagerRateRequestAnswer>(req));
         }
 
         public async Task<ICollection<SalaryRate>> GetSalaryRates(int userId)

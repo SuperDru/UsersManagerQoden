@@ -24,15 +24,13 @@ namespace UsersManager.Services
     {
         private readonly IUserRepository _rep;
         private readonly CompanyDbContext _dbContext;
-        private readonly IMapper _userToProfileMapper, _profileToUserMapper;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository rep, CompanyDbContext context)
+        public UserService(IUserRepository rep, CompanyDbContext context, IMapper mapper)
         {
             _rep = rep;
             _dbContext = context;
-            
-            _userToProfileMapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserProfile>()).CreateMapper();
-            _profileToUserMapper = new MapperConfiguration(cfg => cfg.CreateMap<UserProfile, User>()).CreateMapper();
+            _mapper = mapper;
         }
 
         
@@ -40,7 +38,7 @@ namespace UsersManager.Services
         {
             var user = await _rep.GetUserById(id);
             
-            return _userToProfileMapper.Map<UserProfile>(user);
+            return _mapper.Map<UserProfile>(user);
         }
         
         public async Task<User> GetUser(int id)
@@ -64,7 +62,7 @@ namespace UsersManager.Services
         {
             var user = await _rep.GetUserById(id);
             
-            _dbContext.Users.Update(_profileToUserMapper.Map<UserProfile, User>(profile, user));
+            _dbContext.Users.Update(_mapper.Map(profile, user));
             
             await _dbContext.SaveChangesAsync();
         }
