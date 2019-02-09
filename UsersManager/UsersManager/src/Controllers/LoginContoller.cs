@@ -29,7 +29,6 @@ namespace UsersManager.Controllers
  
         
         [HttpPost("login")]
-        //public async Task Login([FromForm]string nickname, [FromForm]string password)
         public async Task Login([FromBody]UserCredentials cred)
         {
             var user = await _userService.GetUser(cred.Nickname);
