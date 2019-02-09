@@ -12,9 +12,9 @@ namespace UsersManager.Database
         {
         }
         
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<SalaryRateRequest> SalaryRateRequests { get; set; }     
-        public virtual DbSet<SalaryRate> SalaryRates { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<SalaryRateRequest> SalaryRateRequests { get; set; }     
+        public DbSet<SalaryRate> SalaryRates { get; set; }
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
