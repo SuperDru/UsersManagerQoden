@@ -24,7 +24,7 @@ namespace UsersManager.Controllers
         }
 
 
-        [HttpPost("new-request")]
+        [HttpPost("request")]
         [Authorize]
         public async Task CreateRateRequest([FromBody]UserRateRequestRequest request) =>
             await _salaryRatesService.CreateSalaryRequest(request);
@@ -43,7 +43,7 @@ namespace UsersManager.Controllers
         [Authorize(Roles = "admin,manager")]
         public async Task<ICollection<ManagerRateRequestAnswer>> GetManagerRateRequests()
         {
-            int managerId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            var managerId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             
             return await _salaryRatesService.GetManagerSalaryRateRequests(managerId);
         }

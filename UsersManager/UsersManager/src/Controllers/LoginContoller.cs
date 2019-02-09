@@ -46,11 +46,7 @@ namespace UsersManager.Controllers
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.NickName),
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                 };
-
-                foreach (var role in user.UserRoles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
-                }
+                claims.AddRange(user.UserRoles.Select(role => new Claim(ClaimTypes.Role, role.Role.Name)));
                 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme,
                     ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
