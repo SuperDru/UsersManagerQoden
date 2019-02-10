@@ -13,6 +13,8 @@ namespace UsersManager.Database
         }
         
         public DbSet<User> Users { get; set; }
+
+        public DbSet<HashedCredentials> Credentials { get; set; }
         public DbSet<SalaryRateRequest> SalaryRateRequests { get; set; }     
         public DbSet<SalaryRate> SalaryRates { get; set; }
         
@@ -23,7 +25,8 @@ namespace UsersManager.Database
             builder.Entity<UserRole>().HasKey(u => new {u.RoleId, u.UserId});
             builder.Entity<SalaryRate>().HasKey(s => new {s.UpdatedAt, s.UserId});
             builder.Entity<SalaryRateRequest>().HasKey(s => new {s.Guid, s.UpdatedAt});
-
+            builder.Entity<HashedCredentials>().HasKey(h => h.UserId);
+            
             builder.Entity<User>().HasIndex(u => u.NickName).IsUnique();
             builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
             
@@ -38,6 +41,7 @@ namespace UsersManager.Database
             builder.Entity<UserRole>().Init();
             builder.Entity<SalaryRate>().Init();
             builder.Entity<SalaryRateRequest>().Init();
+            builder.Entity<HashedCredentials>().Init();
         }
     }
 }

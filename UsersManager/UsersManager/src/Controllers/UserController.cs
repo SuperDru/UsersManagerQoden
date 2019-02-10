@@ -36,8 +36,8 @@ namespace UsersManager.Controllers
         
         [HttpPost("create")]
         [Authorize(Roles = "admin")]
-        public async Task CreateUser([FromBody] User user) =>
-            await _userService.CreateUser(user);
+        public async Task CreateUser([FromBody] UserCreationRequest userReq) =>
+            await _userService.CreateUser(userReq.User, userReq.Password);
         
         [HttpPost("modify/{id}")]
         [Authorize(Roles = "admin,manager")]

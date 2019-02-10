@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UsersManager.Database.Models;
 
@@ -16,7 +18,6 @@ namespace UsersManager.Database
                     FirstName = "Jhon",
                     LastName = "Foster",
                     NickName = "JFoster",
-                    Password = "1",
                     Email = "jfoster@gmail.com",
                     PhoneNumber = 89129541254L,
                     InvitedAt = DateTime.Parse("2014-12-15"),
@@ -31,7 +32,6 @@ namespace UsersManager.Database
                     LastName = "Shishkin",
                     Patronymic = "Dmitrievich",
                     NickName = "AShishkin",
-                    Password = "12",
                     Email = "ashishkin@mail.ru",
                     PhoneNumber = 83149545254L,
                     InvitedAt = DateTime.Parse("2015-11-13"),
@@ -46,7 +46,6 @@ namespace UsersManager.Database
                     LastName = "Shurikov",
                     Patronymic = "Vasilievich",
                     NickName = "AShurikov",
-                    Password = "123",
                     Email = "ashurikov@mail.ru",
                     PhoneNumber = 83149565253L,
                     InvitedAt = DateTime.Parse("2011-01-29"),
@@ -135,5 +134,39 @@ namespace UsersManager.Database
                     Status = Status.Pending
                 });
         }
+        
+        public static void Init(this EntityTypeBuilder<HashedCredentials> builder)
+        {
+            var creds = new List<HashedCredentials>();
+
+            var salt = PasswordGenerator.GenerateSalt();
+            var password = PasswordGenerator.HashPassword("1", salt);
+            creds.Add(new HashedCredentials()
+            {
+                UserId = 1,
+                Salt = salt,
+                HashedPassword = password
+            });
+            
+            salt = PasswordGenerator.GenerateSalt();
+            password = PasswordGenerator.HashPassword("12", salt);
+            creds.Add(new HashedCredentials()
+            {
+                UserId = 2,
+                Salt = salt,
+                HashedPassword = password
+            });
+            
+            salt = PasswordGenerator.GenerateSalt();
+            password = PasswordGenerator.HashPassword("123", salt);
+            creds.Add(new HashedCredentials()
+            {
+                UserId = 3,
+                Salt = salt,
+                HashedPassword = password
+            });
+            
+            builder.HasData(creds);
+        }       
     }
 }

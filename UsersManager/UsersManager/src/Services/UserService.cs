@@ -16,7 +16,7 @@ namespace UsersManager.Services
         Task<UserProfile> GetUserProfile(int id);
         Task<User> GetUser(int id);
         Task<User> GetUser(string nickname);
-        Task CreateUser(User user);
+        Task CreateUser(User user, string password);
         Task AssignUserToManager(int userId, int manageId);
     }
     
@@ -51,9 +51,18 @@ namespace UsersManager.Services
             return await _rep.GetUserByNickname(nickname);;
         }
 
-        public async Task CreateUser(User user)
+        public async Task CreateUser(User user, string password)
         {
             _dbContext.Users.Add(user);
+            
+            var salt = PasswordGenerator.GenerateSalt();
+            var pass = PasswordGenerator.HashPassword(password, salt);
+            _dbContext.Credentials.Add(new HashedCredentials()
+            {
+                UserId = user.Id,
+                Salt = salt,
+                HashedPassword = pass
+            });
             
             await _dbContext.SaveChangesAsync();
         }

@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +22,12 @@ namespace UsersManager.Controllers
     public class LoginController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
         
-        public LoginController(IUserService userService)
+        public LoginController(IUserService userService, IAccountService accountService)
         {
             _userService = userService;
+            _accountService = accountService;
         }
  
         
@@ -33,22 +36,10 @@ namespace UsersManager.Controllers
         {
             var user = await _userService.GetUser(cred.Nickname);
 
-            if (user != null && user.Password == cred.Password)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.NickName),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-                };
-                claims.AddRange(user.UserRoles.Select(role => new Claim(ClaimTypes.Role, role.Role.Name)));
-                
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme,
-                    ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-                await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
-            }
-            else
+            if (user == null || !(await _accountService.CheckPassword(user, cred.Password))) 
                 Response.StatusCode = 403;
+            else 
+                await HttpContext.SignInAsync(_accountService.Login(user));
         }
 
         [HttpPost("logout")]

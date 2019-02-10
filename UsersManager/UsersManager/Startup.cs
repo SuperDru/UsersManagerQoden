@@ -31,6 +31,7 @@ namespace UsersManager
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISalaryRatesService, SalaryRatesService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             ConfigureDatabase(services);
             ConfigureAutoMapper(services);
@@ -52,7 +53,7 @@ namespace UsersManager
             services.AddEntityFrameworkNpgsql();
             services.AddDbContext<CompanyDbContext>((provider, options) =>
             {
-                options.UseNpgsql(Configuration["Database:ConnectionString"]);
+                options.UseNpgsql("Host=localhost;Port=5432;Database=users_manager;Username=postgres;Password=QWE321EWQ");
             }); 
         }
 
