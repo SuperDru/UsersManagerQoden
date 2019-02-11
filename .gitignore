@@ -3,6 +3,10 @@ UsersManager/UsersManager.sln.DotSettings.user
 UsersManager/UsersManager/UsersManager.csproj
 UsersManager/UsersManager/bin/Debug/netcoreapp2.2/UsersManager.dll
 UsersManager/UsersManager/bin/Debug/netcoreapp2.2/UsersManager.pdb
+UsersManager/UsersManager/bin/Debug/netcoreapp2.2/UsersManager.runtimeconfig.dev.json
+UsersManager/UsersManager/bin/Debug/netcoreapp2.2/UsersManager.deps.json
+UsersManager/UsersManager/bin/Debug/netcoreapp2.2/UsersManager.runtimeconfig.json
+UsersManager/UsersManager/bin/Debug/netcoreapp2.2/UsersManager.UsersManager.runtimeconfig.dev.json.rej
 UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.AssemblyInfo.cs
 UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.AssemblyInfoInputs.cache
 UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.assets.cache
@@ -12,8 +16,11 @@ UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.dll
 UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.pdb
 UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.RazorAssemblyInfo.cache
 UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.RazorTargetAssemblyInfo.cache
+UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.RazorAssemblyInfo.cs
+UsersManager/UsersManager/obj/Debug/netcoreapp2.2/UsersManager.csproj.FileListAbsolute.txt
 UsersManager/UsersManager/obj/project.assets.json
 UsersManager/UsersManager/obj/project.packagespec.json
+UsersManager/UsersManager/obj/UsersManager.csproj.EntityFrameworkCore.targets
 UsersManager/UsersManager/obj/UsersManager.csproj.nuget.cache
 UsersManager/UsersManager/obj/UsersManager.csproj.nuget.g.props
 UsersManager/UsersManager/obj/UsersManager.csproj.nuget.g.targets
