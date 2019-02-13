@@ -10,8 +10,8 @@ using UsersManager.Database;
 namespace UsersManager.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20190209224217_TMigr7")]
-    partial class TMigr7
+    [Migration("20190213202704_Migr1")]
+    partial class Migr1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,43 @@ namespace UsersManager.Migrations
                         {
                             Id = 2,
                             Name = "manager"
+                        });
+                });
+
+            modelBuilder.Entity("UsersManager.Database.Models.HashedCredentials", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("HashedPassword")
+                        .HasColumnName("hashed_password");
+
+                    b.Property<byte[]>("Salt")
+                        .HasColumnName("salt");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("hashed_credentialses");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            HashedPassword = "+Z/JAldyeEVF8u5sDxO5oLsxLaPVbLSrB6LCoLGiuAc=",
+                            Salt = new byte[] { 109, 255, 210, 148, 8, 32, 137, 199, 100, 47, 233, 94, 120, 223, 161, 214 }
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            HashedPassword = "STFECPVK0EJJKzdRGMgNxkIAhhXUQ0zt05zGevRBWVA=",
+                            Salt = new byte[] { 153, 166, 14, 47, 198, 44, 15, 97, 252, 91, 114, 179, 243, 11, 5, 242 }
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            HashedPassword = "UN15037KAkZZu3A02RK0AlxspiOpgv8TS6KoNUJ8pCw=",
+                            Salt = new byte[] { 85, 28, 227, 23, 172, 74, 227, 84, 177, 136, 63, 227, 218, 247, 25, 9 }
                         });
                 });
 
@@ -173,7 +210,7 @@ namespace UsersManager.Migrations
                     b.HasData(
                         new
                         {
-                            Guid = new Guid("9f034ae5-f282-46d5-a359-78b15b82397d"),
+                            Guid = new Guid("a4076df9-d67b-4594-87d7-5cc89ed37962"),
                             UpdatedAt = new DateTime(2017, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Explanation = "You haven't enough experience.",
                             ManagerId = 2,
@@ -185,7 +222,7 @@ namespace UsersManager.Migrations
                         },
                         new
                         {
-                            Guid = new Guid("9f034ae5-f282-46d5-a359-78b15b82397d"),
+                            Guid = new Guid("a4076df9-d67b-4594-87d7-5cc89ed37962"),
                             UpdatedAt = new DateTime(2017, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ManagerId = 2,
                             Rate = 1500,
@@ -228,9 +265,6 @@ namespace UsersManager.Migrations
                     b.Property<string>("NickName")
                         .HasColumnName("nick_name");
 
-                    b.Property<string>("Password")
-                        .HasColumnName("password");
-
                     b.Property<string>("Patronymic")
                         .HasColumnName("patronymic");
 
@@ -262,11 +296,10 @@ namespace UsersManager.Migrations
                             Description = "American",
                             Email = "jfoster@gmail.com",
                             FirstName = "Jhon",
-                            Guid = new Guid("a2bb9c11-b5ac-4c1d-9c04-8f025b662fbd"),
+                            Guid = new Guid("dd472a94-fa67-4f12-a650-fe3de66a7ee2"),
                             InvitedAt = new DateTime(2014, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Foster",
                             NickName = "JFoster",
-                            Password = "1",
                             PhoneNumber = 89129541254L
                         },
                         new
@@ -276,11 +309,10 @@ namespace UsersManager.Migrations
                             Description = "Russian",
                             Email = "ashishkin@mail.ru",
                             FirstName = "Alexander",
-                            Guid = new Guid("2e6ccbd4-86d7-499a-9d37-b00775453dc2"),
+                            Guid = new Guid("afd6a34b-1acf-4ed1-abb3-d4afaf49f9a7"),
                             InvitedAt = new DateTime(2015, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Shishkin",
                             NickName = "AShishkin",
-                            Password = "12",
                             Patronymic = "Dmitrievich",
                             PhoneNumber = 83149545254L
                         },
@@ -291,11 +323,10 @@ namespace UsersManager.Migrations
                             Description = "Russian",
                             Email = "ashurikov@mail.ru",
                             FirstName = "Andrey",
-                            Guid = new Guid("8e74485c-ab9b-4843-8103-1ce94d71196f"),
+                            Guid = new Guid("143f1b99-9fe5-4176-abdd-581ace731308"),
                             InvitedAt = new DateTime(2011, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Shurikov",
                             NickName = "AShurikov",
-                            Password = "123",
                             Patronymic = "Vasilievich",
                             PhoneNumber = 83149565253L
                         });

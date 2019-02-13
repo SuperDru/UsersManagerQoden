@@ -53,7 +53,7 @@ namespace UsersManager
             services.AddEntityFrameworkNpgsql();
             services.AddDbContext<CompanyDbContext>((provider, options) =>
             {
-                options.UseNpgsql("Host=localhost;Port=5432;Database=users_manager;Username=postgres;Password=QWE321EWQ");
+                options.UseNpgsql(Configuration["Database:ConnectionString"]);
             }); 
         }
 

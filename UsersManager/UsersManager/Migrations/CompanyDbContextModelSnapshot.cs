@@ -46,7 +46,7 @@ namespace UsersManager.Migrations
                         });
                 });
 
-            modelBuilder.Entity("UsersManager.Database.Models.HashedCredentials", b =>
+            modelBuilder.Entity("UsersManager.Database.Models.HashedCredential", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -60,26 +60,26 @@ namespace UsersManager.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("hashed_credentialses");
+                    b.ToTable("hashed_credentials");
 
                     b.HasData(
                         new
                         {
                             UserId = 1,
-                            HashedPassword = "1xiJ6OfHF7Ao1VRB0djBPuYj4VABHTmKs0OG2dLK8us=",
-                            Salt = new byte[] { 118, 8, 206, 53, 64, 174, 193, 160, 13, 211, 188, 22, 201, 247, 72, 2 }
+                            HashedPassword = "s54dyTocSirH9BtCopDzS3sPLvdGsPL6pCpLkjHFhvc=",
+                            Salt = new byte[] { 218, 195, 90, 229, 243, 116, 72, 97, 18, 57, 120, 7, 17, 114, 113, 148 }
                         },
                         new
                         {
                             UserId = 2,
-                            HashedPassword = "cB968Ix4ZSsDDdOi3BuXbSpCDzNeDYqOBVCliSq0HGA=",
-                            Salt = new byte[] { 242, 90, 59, 194, 185, 182, 93, 36, 69, 68, 199, 120, 245, 100, 158, 46 }
+                            HashedPassword = "os9LACX+RLCLGp1w2Opv1j8tQMRfKBQdMRXGZT2w4Yw=",
+                            Salt = new byte[] { 86, 5, 166, 248, 250, 39, 95, 174, 165, 193, 218, 39, 28, 158, 104, 119 }
                         },
                         new
                         {
                             UserId = 3,
-                            HashedPassword = "fPze+53KclTkKk9GLbXRbtmhKzLC66p8V2eamYTapK8=",
-                            Salt = new byte[] { 17, 50, 143, 198, 249, 171, 178, 238, 148, 37, 236, 171, 229, 164, 96, 121 }
+                            HashedPassword = "peL9j7j5WTv8gtB4yTU3TSw70zDE6t/mukXJ2+GjyVw=",
+                            Salt = new byte[] { 43, 172, 82, 183, 93, 116, 48, 95, 203, 206, 60, 74, 107, 105, 42, 172 }
                         });
                 });
 
@@ -208,7 +208,7 @@ namespace UsersManager.Migrations
                     b.HasData(
                         new
                         {
-                            Guid = new Guid("3738845f-a969-400a-a777-e11d47a32707"),
+                            Guid = new Guid("744c774f-25eb-4696-8aba-8ec2ca362216"),
                             UpdatedAt = new DateTime(2017, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Explanation = "You haven't enough experience.",
                             ManagerId = 2,
@@ -220,7 +220,7 @@ namespace UsersManager.Migrations
                         },
                         new
                         {
-                            Guid = new Guid("3738845f-a969-400a-a777-e11d47a32707"),
+                            Guid = new Guid("744c774f-25eb-4696-8aba-8ec2ca362216"),
                             UpdatedAt = new DateTime(2017, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ManagerId = 2,
                             Rate = 1500,
@@ -294,7 +294,7 @@ namespace UsersManager.Migrations
                             Description = "American",
                             Email = "jfoster@gmail.com",
                             FirstName = "Jhon",
-                            Guid = new Guid("4977f511-3cdc-4073-86dc-d830d14e64d3"),
+                            Guid = new Guid("26a709ce-ce27-43ba-a7d4-6e05ca5368f8"),
                             InvitedAt = new DateTime(2014, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Foster",
                             NickName = "JFoster",
@@ -307,7 +307,7 @@ namespace UsersManager.Migrations
                             Description = "Russian",
                             Email = "ashishkin@mail.ru",
                             FirstName = "Alexander",
-                            Guid = new Guid("f638ba29-2fc0-4ce4-b264-af5e46d9bfc2"),
+                            Guid = new Guid("19b09a1a-3fcf-45ac-88b0-c19b121c52de"),
                             InvitedAt = new DateTime(2015, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Shishkin",
                             NickName = "AShishkin",
@@ -321,7 +321,7 @@ namespace UsersManager.Migrations
                             Description = "Russian",
                             Email = "ashurikov@mail.ru",
                             FirstName = "Andrey",
-                            Guid = new Guid("4524b820-ea62-4097-ae37-6581e5cc4f99"),
+                            Guid = new Guid("f95bb5bc-1c62-448a-a7ba-2daf05cde42e"),
                             InvitedAt = new DateTime(2011, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Shurikov",
                             NickName = "AShurikov",

@@ -135,13 +135,13 @@ namespace UsersManager.Database
                 });
         }
         
-        public static void Init(this EntityTypeBuilder<HashedCredentials> builder)
+        public static void Init(this EntityTypeBuilder<HashedCredential> builder)
         {
-            var creds = new List<HashedCredentials>();
+            var creds = new List<HashedCredential>();
 
             var salt = PasswordGenerator.GenerateSalt();
             var password = PasswordGenerator.HashPassword("1", salt);
-            creds.Add(new HashedCredentials()
+            creds.Add(new HashedCredential()
             {
                 UserId = 1,
                 Salt = salt,
@@ -150,7 +150,7 @@ namespace UsersManager.Database
             
             salt = PasswordGenerator.GenerateSalt();
             password = PasswordGenerator.HashPassword("12", salt);
-            creds.Add(new HashedCredentials()
+            creds.Add(new HashedCredential()
             {
                 UserId = 2,
                 Salt = salt,
@@ -159,7 +159,7 @@ namespace UsersManager.Database
             
             salt = PasswordGenerator.GenerateSalt();
             password = PasswordGenerator.HashPassword("123", salt);
-            creds.Add(new HashedCredentials()
+            creds.Add(new HashedCredential()
             {
                 UserId = 3,
                 Salt = salt,

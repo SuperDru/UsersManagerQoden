@@ -1,6 +1,6 @@
 namespace UsersManager.Database.Models
 {
-    public class HashedCredentials
+    public class HashedCredential
     {
         public int UserId { get; set; }
         

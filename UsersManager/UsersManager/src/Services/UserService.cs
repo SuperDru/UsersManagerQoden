@@ -57,7 +57,7 @@ namespace UsersManager.Services
             
             var salt = PasswordGenerator.GenerateSalt();
             var pass = PasswordGenerator.HashPassword(password, salt);
-            _dbContext.Credentials.Add(new HashedCredentials()
+            _dbContext.Credentials.Add(new HashedCredential()
             {
                 UserId = user.Id,
                 Salt = salt,
