@@ -36,3 +36,6 @@ UsersManager/.idea/.idea.UsersManager/riderModule.iml
 UsersManager/UsersManager/bin/
 UsersManager/UsersManager/obj/
 UsersManager/UsersManager/Configuration/
+UsersManager/UsersManager.Test/bin/
+UsersManager/UsersManager.Test/obj/
+UsersManager/UsersManager.Test/UsersManager.Test.csproj
