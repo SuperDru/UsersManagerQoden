@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.EntityFrameworkCore;
+using Qoden.Validation;
 using UsersManager.Database;
 using UsersManager.Database.Models;
 using UsersManager.DtoModels;
@@ -38,18 +39,22 @@ namespace UsersManager.Services
         {   
             var user = await _userService.GetUser(request.UserId);
 
-            if (user != null && user.ManagerId != 0)
-            {
-                var req = _mapper.Map<SalaryRateRequest>(request);
+            Check.Value(user.ManagerId, "create request").NotEqualsTo(0, ErrorMessages.NoManagerAttachmentMsg);
+            
+            var rateReqChecking = _dbContext.SalaryRateRequests
+                .FirstOrDefaultAsync(s => s.UserId == request.UserId && s.UpdatedAt == request.UpdatedAt);
 
-                req.Guid = Guid.NewGuid();
-                req.ManagerId = user.ManagerId;
-                req.Status = Status.Pending;
+            Check.Value(rateReqChecking, "create request").IsNull(ErrorMessages.IncorrectDateUpdateMsg);
 
-                _dbContext.SalaryRateRequests.Add(req);
+            var req = _mapper.Map<SalaryRateRequest>(request);
 
-                await _dbContext.SaveChangesAsync();
-            }
+            req.Guid = Guid.NewGuid();
+            req.ManagerId = user.ManagerId;
+            req.Status = Status.Pending;
+
+            _dbContext.SalaryRateRequests.Add(req);
+
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<ICollection<UserRateRequestAnswer>> GetUserSalaryRateRequests(int userId)

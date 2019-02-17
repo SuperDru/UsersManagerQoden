@@ -7,6 +7,7 @@ using UsersManager.Database.Models;
 using UsersManager.DtoModels;
 using UsersManager.Repositories;
 using AutoMapper;
+using Qoden.Validation;
 
 namespace UsersManager.Services
 {
@@ -37,22 +38,36 @@ namespace UsersManager.Services
         public async Task<UserProfile> GetUserProfile(int id)
         {
             var user = await _rep.GetUserById(id);
+
+            Check.Value(user, "get user").NotNull(ErrorMessages.NoUserWithIdMsg(id));
             
             return _mapper.Map<UserProfile>(user);
         }
         
         public async Task<User> GetUser(int id)
         {
-            return await _rep.GetUserById(id);;
+            var user = await _rep.GetUserById(id);
+            
+            Check.Value(user, "get user").NotNull(ErrorMessages.NoUserWithIdMsg(id));
+            
+            return user;
         }
         
         public async Task<User> GetUser(string nickname)
         {
-            return await _rep.GetUserByNickname(nickname);;
+            var user = await _rep.GetUserByNickname(nickname);
+            
+            Check.Value(user, "get user").NotNull(ErrorMessages.NoUserWithNicknameMsg(nickname));
+            
+            return user;
         }
 
         public async Task CreateUser(User user, string password)
         {
+            var userChecking = await _rep.GetUserByNickname(user.NickName);
+            Check.Value(userChecking, "create user").IsNull(ErrorMessages.UserWithNicknameExistsMsg(user.NickName));
+            Check.Value(password, "password").IsPassword();
+            
             _dbContext.Users.Add(user);
             
             var salt = PasswordGenerator.GenerateSalt();
@@ -69,7 +84,12 @@ namespace UsersManager.Services
         
         public async Task ModifyUserProfile(int id, UserProfile profile)
         {
+            var userCheckingNick = await _rep.GetUserByNickname(profile.NickName);
+            var userCheckingEmail = await _rep.GetUserByNickname(profile.Email);
             var user = await _rep.GetUserById(id);
+
+            Check.Value(user.Id).EqualsTo(userCheckingNick.Id, ErrorMessages.UserWithNicknameExistsMsg(profile.NickName));
+            Check.Value(user.Id).EqualsTo(userCheckingEmail.Id, ErrorMessages.UserWithEmailExistsMsg(profile.Email));
             
             _dbContext.Users.Update(_mapper.Map(profile, user));
             
@@ -78,6 +98,12 @@ namespace UsersManager.Services
 
         public async Task AssignUserToManager(int userId, int managerId)
         {
+            var userChecking = await _rep.GetUserById(userId);
+            var managerChecking = await _rep.GetUserById(managerId);
+
+            Check.Value(userChecking).NotNull(ErrorMessages.NoUserWithIdMsg(userId));
+            Check.Value(managerChecking).NotNull(ErrorMessages.NoUserWithIdMsg(managerId));
+            
             var user = await _rep.GetUserById(userId);
             
             user.ManagerId = managerId;
