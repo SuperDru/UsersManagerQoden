@@ -39,9 +39,5 @@ namespace UsersManager.Database.Models
         
         
         public User Manager { get; set; }
-        
-        public ICollection<UserRole> UserRoles { get; set; }
-
-        public ICollection<SalaryRate> SalaryRates { get; set; }
     }
 }

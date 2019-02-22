@@ -28,6 +28,8 @@ namespace UsersManager
             
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
+
+            services.AddMvc(o => { o.Filters.Add<ApiExceptionFilterAttribute>(); });
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISalaryRatesService, SalaryRatesService>();

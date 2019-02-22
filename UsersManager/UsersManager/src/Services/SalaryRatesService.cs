@@ -41,7 +41,7 @@ namespace UsersManager.Services
 
             Check.Value(user.ManagerId, "create request").NotEqualsTo(0, ErrorMessages.NoManagerAttachmentMsg);
             
-            var rateReqChecking = _dbContext.SalaryRateRequests
+            var rateReqChecking = await _dbContext.SalaryRateRequests
                 .FirstOrDefaultAsync(s => s.UserId == request.UserId && s.UpdatedAt == request.UpdatedAt);
 
             Check.Value(rateReqChecking, "create request").IsNull(ErrorMessages.IncorrectDateUpdateMsg);

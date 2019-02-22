@@ -10,22 +10,25 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using UsersManager.Database;
 using UsersManager.Database.Models;
+using UsersManager.Repositories;
 
 namespace UsersManager.Services
 {
     public interface IAccountService
     {
         Task<bool> CheckPassword(User user, string password);
-        ClaimsPrincipal Login(User user);
+        Task<ClaimsPrincipal> Login(User user);
     }
     
     public class AccountService : IAccountService
     {
         private readonly CompanyDbContext _dbContext;
-
-        public AccountService(CompanyDbContext dbContext)
+        private IUserRepository _rep;
+        
+        public AccountService(CompanyDbContext dbContext, IUserRepository rep)
         {
             _dbContext = dbContext;
+            _rep = rep;
         }
         
         public async Task<bool> CheckPassword(User user, string password)
@@ -37,14 +40,15 @@ namespace UsersManager.Services
             return hashedPassword == cred.HashedPassword;
         }
 
-        public ClaimsPrincipal Login(User user)
+        public async Task<ClaimsPrincipal> Login(User user)
         {
+            var role = await _rep.GetUserRole(user.Id);
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.NickName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Role, role.Name)
             };
-            claims.AddRange(user.UserRoles.Select(role => new Claim(ClaimTypes.Role, role.Role.Name)));
                 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme,
                 ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

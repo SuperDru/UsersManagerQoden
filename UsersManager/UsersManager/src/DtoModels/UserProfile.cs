@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using UsersManager.Database.Models;
 
 namespace UsersManager.DtoModels
 {

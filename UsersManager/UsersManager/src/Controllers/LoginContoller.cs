@@ -43,7 +43,7 @@ namespace UsersManager.Controllers
             var correct = await _accountService.CheckPassword(user, cred.Password);
             Check.Value(correct, "credentials").IsTrue(ErrorMessages.CredentialsMsg);
 
-            await HttpContext.SignInAsync(_accountService.Login(user));
+            await HttpContext.SignInAsync(await _accountService.Login(user));
         }
 
         [Authorize]

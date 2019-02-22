@@ -8,6 +8,7 @@ namespace UsersManager.Database
 {
     public static class EntitiesInit
     {
+        
         public static void Init(this EntityTypeBuilder<User> builder)
         {
             builder.HasData(

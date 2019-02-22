@@ -39,9 +39,14 @@ namespace UsersManager.Controllers
         public async Task CreateUser([FromBody] UserCreationRequest userReq) =>
             await _userService.CreateUser(userReq.User, userReq.Password);
         
+        [HttpPost("remove/{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task RemoveUser([FromRoute] int id) =>
+            await _userService.RemoveUser(id);
+        
         [HttpPost("modify/{id}")]
         [Authorize(Roles = "admin,manager")]
-        public async Task ModifyUser([FromQuery] int id, [FromBody] UserProfile profile) =>
+        public async Task ModifyUser([FromRoute] int id, [FromBody] UserProfile profile) =>
             await _userService.ModifyUserProfile(id, profile);
 
         [HttpPost("assign")]
