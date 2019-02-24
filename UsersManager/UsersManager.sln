@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersManager", "UsersManager\UsersManager.csproj", "{174AC0E0-DA4F-490A-8CB6-A15C74C88C4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersManager.Test", "UsersManager.Test\UsersManager.Test.csproj", "{C36657FF-807A-4559-9EAD-D34CBDEF847B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{174AC0E0-DA4F-490A-8CB6-A15C74C88C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{174AC0E0-DA4F-490A-8CB6-A15C74C88C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{174AC0E0-DA4F-490A-8CB6-A15C74C88C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{174AC0E0-DA4F-490A-8CB6-A15C74C88C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C36657FF-807A-4559-9EAD-D34CBDEF847B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C36657FF-807A-4559-9EAD-D34CBDEF847B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C36657FF-807A-4559-9EAD-D34CBDEF847B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C36657FF-807A-4559-9EAD-D34CBDEF847B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
