@@ -10,6 +10,8 @@ namespace UsersManager.Database.Models
     {
         public int Rate { get; set; } 
         public DateTime UpdatedAt { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
+        public User User { get; set; }
     }
 }
