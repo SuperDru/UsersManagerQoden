@@ -85,36 +85,16 @@ namespace UsersManager.Services
             await _dbContext.SaveChangesAsync();
         }
         
-        public async Task RemoveUser(int id)
-        {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
-            _dbContext.Users.Remove(user);
-            
-            var cred = _dbContext.Credentials.Where(c => c.UserId == id);
-            _dbContext.Credentials.RemoveRange(cred);
-            
-            var rates = _dbContext.SalaryRateRequests.Where(c => c.UserId == id);
-            _dbContext.SalaryRateRequests.RemoveRange(rates);
-            
-            var srates = _dbContext.SalaryRates.Where(c => c.UserId == id);
-            _dbContext.SalaryRates.RemoveRange(srates);
-            
-            var roles = _dbContext.Roles.Where(r => r.UserId == id);
-            _dbContext.Roles.RemoveRange(roles);
-            
-            await _dbContext.SaveChangesAsync();
-        }
-        
         public async Task ModifyUserProfile(int id, UserProfile profile)
         {
-            var userCheckingNick = await _rep.GetUserByNickname(profile.NickName);
-            var userCheckingEmail = await _rep.GetUserByNickname(profile.Email);
+            var userToCheckNick = await _rep.GetUserByNickname(profile.NickName);
+            var userToCheckEmail = await _rep.GetUserByEmail(profile.Email);
             var user = await _rep.GetUserById(id);
 
             if (user.NickName != profile.NickName)
-                Check.Value(user?.Id).EqualsTo(userCheckingNick?.Id, ErrorMessages.UserWithNicknameExistsMsg(profile.NickName));
+                Check.Value(user?.Id).EqualsTo(userToCheckNick?.Id, ErrorMessages.UserWithNicknameExistsMsg(profile.NickName));
             if (user.Email != profile.Email)
-                Check.Value(user?.Id).EqualsTo(userCheckingEmail?.Id, ErrorMessages.UserWithEmailExistsMsg(profile.Email));
+                Check.Value(user?.Id).EqualsTo(userToCheckEmail?.Id, ErrorMessages.UserWithEmailExistsMsg(profile.Email));
             
             _dbContext.Users.Update(_mapper.Map(profile, user));
             

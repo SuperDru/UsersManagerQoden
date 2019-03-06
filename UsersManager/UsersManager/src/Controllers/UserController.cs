@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,17 +19,20 @@ namespace UsersManager.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
         
-        public UserController(IUserService service)
+        
+        public UserController(IUserService service, IMapper mapper)
         {
             _userService = service;
+            _mapper = mapper;
         }
 
 
-        [HttpGet("profile/{id}")]
+        [HttpGet("profile")]
         [Authorize]
-        public async Task<UserProfile> GetProfile([FromRoute]int id) =>
-            await _userService.GetUserProfile(id);
+        public async Task<UserProfile> GetProfile() =>
+            _mapper.Map<UserProfile>(await _userService.GetUser(int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value)));
 
         [HttpGet("user/{id}")]
         [Authorize(Roles = "admin,manager")]
@@ -37,12 +42,7 @@ namespace UsersManager.Controllers
         [HttpPost("create")]
         [Authorize(Roles = "admin")]
         public async Task CreateUser([FromBody] UserCreationRequest userReq) =>
-            await _userService.CreateUser(userReq.User, userReq.Password);
-        
-        [HttpPost("remove/{id}")]
-        [Authorize(Roles = "admin")]
-        public async Task RemoveUser([FromRoute] int id) =>
-            await _userService.RemoveUser(id);
+            await _userService.CreateUser(userReq);
         
         [HttpPost("modify/{id}")]
         [Authorize(Roles = "admin,manager")]
@@ -51,7 +51,7 @@ namespace UsersManager.Controllers
 
         [HttpPost("assign")]
         [Authorize(Roles = "admin")]
-        public async Task AssignUserToManager([FromBody]UserManagerId umId) =>
-            await _userService.AssignUserToManager(umId.UserId, umId.ManagerId);
+        public async Task AssignUserToManager([FromBody]AssignUserToManagerRequest umRequest) =>
+            await _userService.AssignUserToManager(umRequest.UserId, umRequest.ManagerId);
     }
 }
