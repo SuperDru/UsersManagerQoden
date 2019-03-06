@@ -4,6 +4,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersManager", "UsersManage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersManager.Test", "UsersManager.Test\UsersManager.Test.csproj", "{C36657FF-807A-4559-9EAD-D34CBDEF847B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{D4C04383-A473-40D3-B908-E52F2B3E27F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qoden.Util", "Lib\Util\Qoden.Util.csproj", "{5E730241-8904-4069-8EC3-3AA8AC9EC02D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qoden.Validation", "Lib\Validation\Validation\Qoden.Validation.csproj", "{D35DE0C5-FDF8-42F5-A952-715978D4C0CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qoden.Validation.AspNetCore", "Lib\Validation\AspNetCore\Qoden.Validation.AspNetCore.csproj", "{ABEC772B-5E1D-4FBA-9830-22A3EEDDC265}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,7 +26,22 @@ Global
 		{C36657FF-807A-4559-9EAD-D34CBDEF847B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C36657FF-807A-4559-9EAD-D34CBDEF847B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C36657FF-807A-4559-9EAD-D34CBDEF847B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E730241-8904-4069-8EC3-3AA8AC9EC02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E730241-8904-4069-8EC3-3AA8AC9EC02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E730241-8904-4069-8EC3-3AA8AC9EC02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E730241-8904-4069-8EC3-3AA8AC9EC02D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35DE0C5-FDF8-42F5-A952-715978D4C0CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35DE0C5-FDF8-42F5-A952-715978D4C0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35DE0C5-FDF8-42F5-A952-715978D4C0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35DE0C5-FDF8-42F5-A952-715978D4C0CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEC772B-5E1D-4FBA-9830-22A3EEDDC265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEC772B-5E1D-4FBA-9830-22A3EEDDC265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEC772B-5E1D-4FBA-9830-22A3EEDDC265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEC772B-5E1D-4FBA-9830-22A3EEDDC265}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{5E730241-8904-4069-8EC3-3AA8AC9EC02D} = {D4C04383-A473-40D3-B908-E52F2B3E27F9}
+		{D35DE0C5-FDF8-42F5-A952-715978D4C0CE} = {D4C04383-A473-40D3-B908-E52F2B3E27F9}
+		{ABEC772B-5E1D-4FBA-9830-22A3EEDDC265} = {D4C04383-A473-40D3-B908-E52F2B3E27F9}
 	EndGlobalSection
 EndGlobal
