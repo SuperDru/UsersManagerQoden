@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
@@ -16,12 +17,9 @@ namespace UsersManager.Services
     public interface IUserService
     {
         Task ModifyUserProfile(int id, UserProfile profile);
-        Task<UserProfile> GetUserProfile(int id);
         Task<User> GetUser(int id);
-        Task<User> GetUser(string nickname);
-        Task CreateUser(User user, string password);
+        Task CreateUser(UserCreationRequest userCreationRequest);
         Task AssignUserToManager(int userId, int manageId);
-        Task RemoveUser(int id);
     }
     
     public class UserService : IUserService
@@ -36,16 +34,6 @@ namespace UsersManager.Services
             _dbContext = context;
             _mapper = mapper;
         }
-
-        
-        public async Task<UserProfile> GetUserProfile(int id)
-        {
-            var user = await _rep.GetUserById(id);
-
-            Check.Value(user, "get user").NotNull(ErrorMessages.NoUserWithIdMsg(id));
-            
-            return _mapper.Map<UserProfile>(user);
-        }
         
         public async Task<User> GetUser(int id)
         {
@@ -55,26 +43,25 @@ namespace UsersManager.Services
             
             return user;
         }
-        
-        public async Task<User> GetUser(string nickname)
-        {
-            var user = await _rep.GetUserByNickname(nickname);
-            
-            Check.Value(user, "get user").NotNull(ErrorMessages.NoUserWithNicknameMsg(nickname));
-            
-            return user;
-        }
 
-        public async Task CreateUser(User user, string password)
+        public async Task CreateUser(UserCreationRequest userCreationRequest)
         {
-            var userChecking = await _rep.GetUserByNickname(user.NickName);
-            Check.Value(userChecking, "create user").IsNull(ErrorMessages.UserWithNicknameExistsMsg(user.NickName));
-            Check.Value(password, "password").IsPassword();
-            
+            var userToCheckNick = await _rep.GetUserByNickname(userCreationRequest.NickName);
+            var userToCheckEmail = await _rep.GetUserByEmail(userCreationRequest.Email);
+            Check.Value(userToCheckNick, "create user")
+                .IsNull(ErrorMessages.UserWithNicknameExistsMsg(userCreationRequest.NickName));
+            Check.Value(userToCheckEmail, "create user")
+                .IsNull(ErrorMessages.UserWithEmailExistsMsg(userCreationRequest.Email));
+            Check.Value(userCreationRequest.Password, "password").IsPassword();
+
+            var count = await _dbContext.Users.CountAsync();
+            var user = _mapper.Map<User>(userCreationRequest);
+            user.Id = count + 1;
+            user.Guid = Guid.NewGuid();
             _dbContext.Users.Add(user);
             
             var salt = PasswordGenerator.GenerateSalt();
-            var pass = PasswordGenerator.HashPassword(password, salt);
+            var pass = PasswordGenerator.HashPassword(userCreationRequest.Password, salt);
             _dbContext.Credentials.Add(new HashedCredential()
             {
                 UserId = user.Id,

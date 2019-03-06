@@ -13,6 +13,7 @@ namespace UsersManager.Repositories
     {
         Task<User> GetUserById(int id);
         Task<User> GetUserByNickname(string nickname);
+        Task<User> GetUserByEmail(string email);
         Task<Role> GetUserRole(int id);
     }
     public class UserRepository: IUserRepository
@@ -36,6 +37,13 @@ namespace UsersManager.Repositories
             return await _dbContext.Users
                 .Include(u => u.Department)
                 .FirstOrDefaultAsync(u => u.NickName == nickname);
+        }
+        
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _dbContext.Users
+                .Include(u => u.Department)
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<Role> GetUserRole(int id)
