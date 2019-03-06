@@ -17,7 +17,7 @@ namespace UsersManager
     public class Startup
     {
         private IConfiguration Configuration { get; }
-        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,7 +26,7 @@ namespace UsersManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 
@@ -57,7 +57,7 @@ namespace UsersManager
             services.AddDbContext<CompanyDbContext>((provider, options) =>
             {
                 options.UseNpgsql(Configuration["Database:ConnectionString"]);
-            }); 
+            });
         }
 
         private static void ConfigureAutoMapper(IServiceCollection services)
@@ -71,7 +71,7 @@ namespace UsersManager
                 cfg.CreateMap<UserProfile, User>();
                 cfg.CreateMap<UserCreationRequest, User>();
             }).CreateMapper();
-            
+
             services.AddSingleton(mapper);
         }
     }
