@@ -46,7 +46,7 @@ namespace UsersManager.Test
         {
             await _context.AuthorizeAsAdmin();
 
-            await CreateUser();
+            await _context.CreateUser();
             
             var request = new UserRateRequestRequest()
             {
@@ -69,7 +69,7 @@ namespace UsersManager.Test
 
             req.Reasons.Should().Be("I'm good manager");
 
-            await RemoveUser(4);
+            await _context.RemoveUser(4);
         }
 
         [Fact]
@@ -102,41 +102,5 @@ namespace UsersManager.Test
             requestsList.Count.Should().Be(3);
         }
         
-        private async Task<User> CreateUser()
-        {
-            var user = new User()
-            {
-                Id = 4,
-                Guid = Guid.NewGuid(),
-                FirstName = "Jho",
-                LastName = "Fal",
-                NickName = "Kio",
-                Email = "kil@gmail.com",
-                PhoneNumber = 89139541254L,
-                Description = "American",
-                InvitedAt = DateTime.Parse("2014-11-15"),
-                DepartmentId = 2
-            };
-            
-            var req = new UserCreationRequest()
-            {
-                User = user,
-                Password = "1234"
-            };
-            
-            var response = await _context.Client.PostAsJsonAsync("account/create", req);
-            var body = await response.Content.ReadAsStringAsync();
-            
-            response.StatusCode.Should().BeEquivalentTo(200);
-
-            return user;
-        }
-        
-        private async Task RemoveUser(int id)
-        {
-            var response = await _context.Client.PostAsync($"account/remove/{id}", null);
-            
-            response.StatusCode.Should().BeEquivalentTo(200);
-        }
     }
 }
