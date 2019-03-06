@@ -41,16 +41,17 @@ namespace UsersManager.Services
 
             Check.Value(user.ManagerId, "create request").NotEqualsTo(0, ErrorMessages.NoManagerAttachmentMsg);
             
-            var rateReqChecking = await _dbContext.SalaryRateRequests
+            var rateReqRecord = await _dbContext.SalaryRateRequests
                 .FirstOrDefaultAsync(s => s.UserId == request.UserId && s.UpdatedAt == request.UpdatedAt);
 
-            Check.Value(rateReqChecking, "create request").IsNull(ErrorMessages.IncorrectDateUpdateMsg);
+            Check.Value(rateReqRecord, "create request").IsNull(ErrorMessages.IncorrectDateUpdateMsg);
 
             var req = _mapper.Map<SalaryRateRequest>(request);
 
             req.Guid = Guid.NewGuid();
             req.ManagerId = user.ManagerId;
             req.Status = Status.Pending;
+            req.UserId = user.Id;
 
             _dbContext.SalaryRateRequests.Add(req);
 

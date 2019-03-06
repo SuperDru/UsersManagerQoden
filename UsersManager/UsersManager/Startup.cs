@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Qoden.Validation.AspNetCore;
 using UsersManager.Database;
 using UsersManager.Database.Models;
 using UsersManager.DtoModels;
@@ -68,6 +69,7 @@ namespace UsersManager
                 cfg.CreateMap<SalaryRateRequest, ManagerRateRequestAnswer>();
                 cfg.CreateMap<User, UserProfile>();
                 cfg.CreateMap<UserProfile, User>();
+                cfg.CreateMap<UserCreationRequest, User>();
             }).CreateMapper();
             
             services.AddSingleton(mapper);

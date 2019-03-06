@@ -123,11 +123,11 @@ namespace UsersManager.Services
 
         public async Task AssignUserToManager(int userId, int managerId)
         {
-            var userChecking = await _rep.GetUserById(userId);
-            var managerChecking = await _rep.GetUserById(managerId);
+            var userRecord = await _rep.GetUserById(userId);
+            var managerRecord = await _rep.GetUserById(managerId);
 
-            Check.Value(userChecking).NotNull(ErrorMessages.NoUserWithIdMsg(userId));
-            Check.Value(managerChecking).NotNull(ErrorMessages.NoUserWithIdMsg(managerId));
+            Check.Value(userRecord).NotNull(ErrorMessages.NoUserWithIdMsg(userId));
+            Check.Value(managerRecord).NotNull(ErrorMessages.NoUserWithIdMsg(managerId));
             
             var user = await _rep.GetUserById(userId);
             
