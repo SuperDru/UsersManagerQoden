@@ -25,7 +25,6 @@ namespace UsersManager.Database
             builder.Entity<UserRole>().HasKey(u => new {u.RoleId, u.UserId});
             builder.Entity<SalaryRate>().HasKey(s => new {s.UpdatedAt, s.UserId});
             builder.Entity<SalaryRateRequest>().HasKey(s => new {s.Guid, s.UpdatedAt});
-            builder.Entity<HashedCredential>().HasKey(h => h.UserId);
             
             builder.Entity<User>().HasIndex(u => u.NickName).IsUnique();
             builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
