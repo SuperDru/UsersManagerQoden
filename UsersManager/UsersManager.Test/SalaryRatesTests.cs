@@ -61,15 +61,15 @@ namespace UsersManager.Test
             response.StatusCode.Should().BeEquivalentTo(200);
             
             response = await _context.Client.GetAsync("salary/requests/4");
-            var body = await response.Content.ReadAsStringAsync();
-
-            var requestsList = Newtonsoft.Json.JsonConvert.DeserializeObject<ICollection<SalaryRateRequest>>(body);
+            var requestsList = await response.Content.ReadAsAsync<ICollection<UserRateRequestAnswer>>();
 
             var req = requestsList.First();
 
-            req.Reasons.Should().Be("I'm good manager");
-
             await _context.RemoveUser(4);
+            
+            req.Reasons.Should().Be(request.Reasons);
+            req.Rate.Should().Be(request.Rate);
+            req.UpdatedAt.Should().BeCloseTo(request.UpdatedAt);
         }
 
         [Fact]
