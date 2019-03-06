@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UsersManager.Database;
@@ -9,9 +10,10 @@ using UsersManager.Database;
 namespace UsersManager.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    partial class CompanyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190306215313_Migr3")]
+    partial class Migr3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,20 +68,20 @@ namespace UsersManager.Migrations
                         new
                         {
                             UserId = 1,
-                            HashedPassword = "2gkpeAEnA5+eYW0CvUGxg0V0nYksIuJ9oVIoqrF5C+M=",
-                            Salt = new byte[] { 78, 1, 71, 121, 68, 120, 148, 38, 34, 212, 59, 18, 23, 23, 56, 125 }
+                            HashedPassword = "M/kCV1r3olAPKyV1kFWvwm+q7EHhlNy+3Hb7h+GZt7Q=",
+                            Salt = new byte[] { 145, 125, 23, 211, 205, 193, 142, 217, 108, 28, 149, 125, 235, 182, 254, 1 }
                         },
                         new
                         {
                             UserId = 2,
-                            HashedPassword = "F1AUSYCzsR/gZBjbcSanqiPL4lnwzw4LDCCuGCM/sBQ=",
-                            Salt = new byte[] { 58, 48, 129, 69, 217, 245, 57, 189, 165, 49, 183, 180, 163, 148, 228, 162 }
+                            HashedPassword = "tbF15tbhBLeSBpteGHsopTexwic14Vn9pwYu7NGwM1w=",
+                            Salt = new byte[] { 45, 184, 34, 192, 33, 29, 122, 75, 238, 22, 26, 177, 2, 211, 107, 179 }
                         },
                         new
                         {
                             UserId = 3,
-                            HashedPassword = "S8CQmd/+UkZ02TYCKZFbaJqCwLIRVTsBtI15qqynbK4=",
-                            Salt = new byte[] { 0, 202, 165, 185, 81, 112, 32, 84, 140, 167, 21, 42, 116, 21, 34, 243 }
+                            HashedPassword = "ojeAkISmrgunQqIjCuIWCkV4XXY6kIMzjfUbzccaziA=",
+                            Salt = new byte[] { 135, 56, 224, 16, 228, 183, 175, 86, 31, 232, 69, 224, 99, 215, 19, 75 }
                         });
                 });
 
@@ -127,9 +129,6 @@ namespace UsersManager.Migrations
                         .HasColumnName("rate");
 
                     b.HasKey("UpdatedAt", "UserId");
-
-                    b.HasIndex("UserId")
-                        .HasName("ix_salary_rates_user_id");
 
                     b.ToTable("salary_rates");
 
@@ -208,7 +207,7 @@ namespace UsersManager.Migrations
                     b.HasData(
                         new
                         {
-                            Guid = new Guid("ca11ce25-5bff-48e4-a7b3-b76952074b82"),
+                            Guid = new Guid("284df7a9-a327-42c1-8569-c435d5dc51aa"),
                             UpdatedAt = new DateTime(2017, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Explanation = "You haven't enough experience.",
                             ManagerId = 2,
@@ -220,7 +219,7 @@ namespace UsersManager.Migrations
                         },
                         new
                         {
-                            Guid = new Guid("ca11ce25-5bff-48e4-a7b3-b76952074b82"),
+                            Guid = new Guid("284df7a9-a327-42c1-8569-c435d5dc51aa"),
                             UpdatedAt = new DateTime(2017, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ManagerId = 2,
                             Rate = 1500,
@@ -294,7 +293,7 @@ namespace UsersManager.Migrations
                             Description = "American",
                             Email = "jfoster@gmail.com",
                             FirstName = "Jhon",
-                            Guid = new Guid("2fa6e58a-483b-47ea-9550-acec85fc6595"),
+                            Guid = new Guid("bd416a6f-1ca9-4bc7-8481-57095f4a1050"),
                             InvitedAt = new DateTime(2014, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Foster",
                             NickName = "JFoster",
@@ -307,7 +306,7 @@ namespace UsersManager.Migrations
                             Description = "Russian",
                             Email = "ashishkin@mail.ru",
                             FirstName = "Alexander",
-                            Guid = new Guid("b6240f6e-e0f6-4eb0-8d0e-5e05f0137945"),
+                            Guid = new Guid("01eb8bc6-ce45-4c46-ac06-b0c691cfc460"),
                             InvitedAt = new DateTime(2015, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Shishkin",
                             NickName = "AShishkin",
@@ -321,7 +320,7 @@ namespace UsersManager.Migrations
                             Description = "Russian",
                             Email = "ashurikov@mail.ru",
                             FirstName = "Andrey",
-                            Guid = new Guid("832a48fe-8bc6-49c7-bb40-7bdb57451ed6"),
+                            Guid = new Guid("9d1e9804-505d-4705-a156-5144e09c1e99"),
                             InvitedAt = new DateTime(2011, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Shurikov",
                             NickName = "AShurikov",
@@ -369,15 +368,6 @@ namespace UsersManager.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_hashed_credentials_users_user_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("UsersManager.Database.Models.SalaryRate", b =>
-                {
-                    b.HasOne("UsersManager.Database.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("fk_salary_rates_users_user_id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
