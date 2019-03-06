@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using UsersManager.Database.Models;
 using UsersManager.DtoModels;
 using Xunit;
@@ -31,9 +32,7 @@ namespace UsersManager.Test
             await _context.AuthorizeAsUser();
 
             var response = await _context.Client.GetAsync("salary/requests/1");
-            var body = await response.Content.ReadAsStringAsync();
-
-            var requestsList = Newtonsoft.Json.JsonConvert.DeserializeObject<ICollection<SalaryRateRequest>>(body);
+            var requestsList = await response.Content.ReadAsAsync<ICollection<UserRateRequestAnswer>>();
 
             response.StatusCode.Should().BeEquivalentTo(200);
             requestsList.First().UpdatedAt.Should().Be(DateTime.Parse("2017-05-11"));
@@ -47,7 +46,7 @@ namespace UsersManager.Test
             await _context.AuthorizeAsAdmin();
 
             await _context.CreateUser();
-            
+
             var request = new UserRateRequestRequest()
             {
                 UserId = 4,
@@ -78,9 +77,7 @@ namespace UsersManager.Test
             await _context.AuthorizeAsManager();
 
             var response = await _context.Client.GetAsync("salary/requests");
-            var body = await response.Content.ReadAsStringAsync();
-
-            var requestsList = Newtonsoft.Json.JsonConvert.DeserializeObject<ICollection<ManagerRateRequestAnswer>>(body);
+            var requestsList = await response.Content.ReadAsAsync<ICollection<ManagerRateRequestAnswer>>();
 
             response.StatusCode.Should().BeEquivalentTo(200);
             foreach (var req in requestsList)
@@ -94,9 +91,7 @@ namespace UsersManager.Test
             await _context.AuthorizeAsAdmin();
 
             var response = await _context.Client.GetAsync("salary/all-requests");
-            var body = await response.Content.ReadAsStringAsync();
-
-            var requestsList = Newtonsoft.Json.JsonConvert.DeserializeObject<ICollection<SalaryRateRequest>>(body);
+            var requestsList = await response.Content.ReadAsAsync<ICollection<SalaryRateRequest>>();
 
             response.StatusCode.Should().BeEquivalentTo(200);
             requestsList.Count.Should().Be(3);

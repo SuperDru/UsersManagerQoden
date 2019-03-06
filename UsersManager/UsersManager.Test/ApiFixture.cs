@@ -116,16 +116,10 @@ namespace UsersManager.Test
         }
         public async Task<User> GetUser(int id)
         {
-//            return await DbContext.Users
-//                .Include(u => u.Manager)
-//                .FirstOrDefaultAsync(u => u.Id == id);
-
             var response = await Client.GetAsync($"account/user/{id}");
-            var body = await response.Content.ReadAsStringAsync();
-
             response.StatusCode.Should().BeEquivalentTo(200);
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<User>(body);
+            
+            return await response.Content.ReadAsAsync<User>();
         }
         public async Task RemoveUser(int id)
         {

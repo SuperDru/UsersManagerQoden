@@ -18,7 +18,7 @@ namespace UsersManager.Test
     public class UserTests: IClassFixture<ApiFixture>
     {
         private readonly ApiFixture _context;
-        private ITestOutputHelper _output;
+        private readonly ITestOutputHelper _output;
         
         public UserTests(ApiFixture fixture, ITestOutputHelper helper)
         {
@@ -32,10 +32,8 @@ namespace UsersManager.Test
         {
             await _context.AuthorizeAsUser();
             
-            var response = await _context.Client.GetAsync("account/profile/1");
-            var body = await response.Content.ReadAsStringAsync();
-
-            var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<UserProfile>(body);
+            var response = await _context.Client.GetAsync("account/profile");
+            var profile = await response.Content.ReadAsAsync<UserProfile>();
             
             response.StatusCode.Should().BeEquivalentTo(200);
             profile.NickName.Should().BeEquivalentTo("JFoster");
@@ -47,11 +45,10 @@ namespace UsersManager.Test
             await _context.AuthorizeAsAdmin();
 
             var response = await _context.Client.GetAsync("account/user/1");
-            var body = await response.Content.ReadAsStringAsync();
+            var user = await response.Content.ReadAsAsync<User>();
 
             response.StatusCode.Should().BeEquivalentTo(200);
-
-            var user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(body);
+            
             user.NickName.Should().BeEquivalentTo("JFoster");
             user.InvitedAt.Should().Be(DateTime.Parse("2014-12-15"));
         }
@@ -60,10 +57,8 @@ namespace UsersManager.Test
         {
             await _context.AuthorizeAsAdmin();
             
-            var user = new User()
+            var req = new UserCreationRequest()
             {
-                Id = 4,
-                Guid = Guid.NewGuid(),
                 FirstName = "Jho",
                 LastName = "Fal",
                 NickName = "Kio",
@@ -71,23 +66,18 @@ namespace UsersManager.Test
                 PhoneNumber = 89139541254L,
                 Description = "American",
                 InvitedAt = DateTime.Parse("2014-11-15"),
-                DepartmentId = 2
-            };
-            
-            var req = new UserCreationRequest()
-            {
-                User = user,
+                DepartmentId = 2,
                 Password = "1234"
             };
             
             var response = await _context.Client.PostAsJsonAsync("account/create", req);
             response.StatusCode.Should().BeEquivalentTo(200);
             
-            var newUser = await _context.GetUser(user.Id);
+            var newUser = await _context.GetUser(4);
             
             newUser.Should().NotBeNull();
-            newUser.NickName.Should().BeEquivalentTo(user.NickName);
-            newUser.InvitedAt.Should().Be(user.InvitedAt);
+            newUser.NickName.Should().BeEquivalentTo(req.NickName);
+            newUser.InvitedAt.Should().Be(req.InvitedAt);
             
             await _context.RemoveUser(4);
         }
@@ -122,7 +112,7 @@ namespace UsersManager.Test
         [Fact]
         public async void AdminCanAssignUserToManager()
         {
-            var umId = new UserManagerId()
+            var umId = new AssignUserToManagerRequest()
             {
                 UserId = 4,
                 ManagerId = 2

@@ -53,7 +53,6 @@ namespace UsersManager.Test
             
             var response = await _context.Client.PostAsJsonAsync("account/login", request);
             var body = await response.Content.ReadAsStringAsync();
-            _output.WriteLine(body);
             
             response.Headers.FirstOrDefault(h => h.Key == "Set-Cookie").Value.Should().BeNull();
             body.Should().Contain("\"message\":\"Invalid username or password\"");
