@@ -33,3 +33,4 @@ Desktop.ini
 .DS_Store
 UsersManager/UsersManager/Configuration/
 UsersManager/UsersManager/Properties/
+UsersManager/UsersManager/src/Database/Migrations/postgresql-42.2.5.jar
