@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <property name="u_id" value="uuid_generate_v4()"/>
+	
+  <changeSet id="2019-03-07-03-create-salary-rate-requests-table" author="superdru">
+    <createTable tableName="salary_rate_requests">
+	
+      <column name="guid" type="uuid" defaultValueComputed="${u_id}">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+	  
+	  <column name="updated_at" type="timestamp">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+
+	  <column name="user_id" type="int">
+        <constraints nullable="false"/>
+      </column>	  
+	  
+	  <column name="rate" type="int">
+        <constraints nullable="false"/>
+      </column>	  
+	  
+	  <column name="reasons" type="text">
+        <constraints nullable="true"/>
+      </column>	  
+	  
+	  <column name="private_explanation" type="text">
+        <constraints nullable="true"/>
+      </column>	  
+	  
+	  <column name="explanation" type="text">
+        <constraints nullable="true"/>
+      </column>	  
+	  
+	  <column name="manager_id" type="int">
+        <constraints nullable="true"/>
+      </column>	  
+	  
+	  <column name="status" type="int">
+        <constraints nullable="true"/>
+      </column>	  
+	  
+    </createTable>
+
+	<addForeignKeyConstraint
+        baseTableName="salary_rate_requests"
+        baseColumnNames="user_id"
+        constraintName="fk_salary_rate_requests_user_id__users"
+        referencedColumnNames="id"
+        referencedTableName="users"
+		onDelete="CASCADE"
+		onUpdate="CASCADE"/>
+		
+	<addForeignKeyConstraint
+        baseTableName="salary_rate_requests"
+        baseColumnNames="manager_id"
+        constraintName="fk_salary_rate_requests_manager_id__users"
+        referencedColumnNames="id"
+        referencedTableName="users"
+		onDelete="CASCADE"
+		onUpdate="CASCADE"/>
+  </changeSet>
+</databaseChangeLog>

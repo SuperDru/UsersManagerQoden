@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet id="2019-03-07-03-salary-rates-seed" author="superdru">
+  
+    <insert tableName="salary_rates">
+      <column name="user_id" value="1"/>
+      <column name="rate" value="1000"/>
+      <column name="updated_at" value="2014-12-15"/>
+    </insert>  
+	
+    <insert tableName="salary_rates">
+      <column name="user_id" value="1"/>
+      <column name="rate" value="1200"/>
+      <column name="updated_at" value="2016-11-12"/>
+    </insert>  
+	
+    <insert tableName="salary_rates">
+      <column name="user_id" value="2"/>
+      <column name="rate" value="1500"/>
+      <column name="updated_at" value="2015-11-13"/>
+    </insert>  
+
+    <insert tableName="salary_rates">
+      <column name="user_id" value="2"/>
+      <column name="rate" value="1800"/>
+      <column name="updated_at" value="2015-02-25"/>
+    </insert>  
+
+    <insert tableName="salary_rates">
+      <column name="user_id" value="3"/>
+      <column name="rate" value="2500"/>
+      <column name="updated_at" value="2011-01-29"/>
+    </insert>  	
+
+  </changeSet>
+</databaseChangeLog>

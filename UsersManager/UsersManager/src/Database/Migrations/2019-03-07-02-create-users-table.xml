@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <property name="u_id" value="uuid_generate_v4()"/>
+	
+  <changeSet id="2019-03-07-02-create-users-table" author="superdru">
+    <createTable tableName="users">
+	
+	  <column name="id" type="int" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	  </column>
+
+	  <column name="guid" type="uuid" defaultValueComputed="${u_id}">
+		<constraints nullable="false"/>
+	  </column>
+	  
+	  <column name="first_name" type="varchar(50)">
+		<constraints nullable="false"/>
+	  </column>
+	  
+	  <column name="last_name" type="varchar(50)">
+		<constraints nullable="false"/>
+	  </column>
+	  
+	  <column name="patronymic" type="varchar(50)">
+		<constraints nullable="true"/>
+	  </column>
+	  
+	  <column name="nick_name" type="varchar(50)">
+		<constraints nullable="false" unique="true"/>
+	  </column>
+	  
+	  <column name="email" type="varchar(50)">
+		<constraints nullable="false" unique="true"/>
+	  </column>
+	  
+	  <column name="phone_number" type="bigint">
+		<constraints nullable="true"/>
+	  </column>
+	  
+	  <column name="invited_at" type="timestamp">
+		<constraints nullable="false"/>
+	  </column>
+	  
+	  <column name="description" type="text">
+		<constraints nullable="true"/>
+	  </column>
+	  
+	  <column name="department_id" type="int">
+		<constraints nullable="false"/>
+	  </column>
+	  
+	  <column name="manager_id" type="int">
+		<constraints nullable="true"/>
+	  </column>
+	  
+    </createTable>
+	
+	<addForeignKeyConstraint
+        baseTableName="users"
+        baseColumnNames="manager_id"
+        constraintName="fk_users_manager_id__users"
+        referencedColumnNames="id"
+        referencedTableName="users"
+		onDelete="CASCADE"
+		onUpdate="CASCADE"/>
+		
+	<addForeignKeyConstraint
+        baseTableName="users"
+        baseColumnNames="department_id"
+        constraintName="fk_users_department_id__departments"
+        referencedColumnNames="id"
+        referencedTableName="departments"
+		onDelete="CASCADE"
+		onUpdate="CASCADE"/>
+
+  </changeSet>
+</databaseChangeLog>

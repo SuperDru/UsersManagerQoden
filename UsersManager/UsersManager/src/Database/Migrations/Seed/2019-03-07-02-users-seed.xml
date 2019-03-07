@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet id="2019-03-07-02-users-seed" author="superdru">
+  
+    <insert tableName="users">
+      <column name="first_name" value="Jhon"/>
+      <column name="last_name" value="Foster"/>
+      <column name="nick_name" value="JFoster"/>
+      <column name="email" value="jfoster@gmail.com"/>
+      <column name="phone_number" value="89129541254"/>
+      <column name="invited_at" value="2014-12-15"/>
+      <column name="description" value="American"/>
+      <column name="department_id" value="1"/>
+    </insert>
+	
+	<insert tableName="users">
+      <column name="first_name" value="Alexander"/>
+      <column name="last_name" value="Shishkin"/>
+      <column name="patronymic" value="Dmitrievich"/>
+      <column name="nick_name" value="AShishkin"/>
+      <column name="email" value="ashishkin@mail.ru"/>
+      <column name="phone_number" value="83149545254"/>
+      <column name="invited_at" value="2015-11-13"/>
+      <column name="description" value="Russian"/>
+      <column name="department_id" value="2"/>
+    </insert>
+	
+	<insert tableName="users">
+      <column name="first_name" value="Andrey"/>
+      <column name="last_name" value="Shurikov"/>
+      <column name="patronymic" value="Vasilievich"/>
+      <column name="nick_name" value="AShurikov"/>
+      <column name="email" value="ashurikov@mail.ru"/>
+      <column name="phone_number" value="83149565253"/>
+      <column name="invited_at" value="2011-01-29"/>
+      <column name="description" value="Russian"/>
+      <column name="department_id" value="2"/>
+    </insert>
+
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet id="2019-03-07-03-salary-rate-requests-seed" author="superdru">
+  
+    <insert tableName="salary_rate_requests">
+      <column name="guid" value="ca11ce25-5bff-48e4-a7b3-b76952074b82"/>
+      <column name="user_id" value="1"/>
+      <column name="manager_id" value="2"/>
+      <column name="rate" value="1500"/>
+      <column name="updated_at" value="2017-05-11"/>
+      <column name="reasons" value="Just so"/>
+      <column name="explanation" value="You haven't enough experience."/>
+      <column name="private_explanation" value="He's way too dumb."/>
+      <column name="status" value="3"/>
+    </insert>  
+	
+    <insert tableName="salary_rate_requests">
+      <column name="guid" value="ca11ce25-5bff-48e4-a7b3-b76952074b82"/>
+      <column name="user_id" value="1"/>
+      <column name="manager_id" value="2"/>
+      <column name="rate" value="1500"/>
+      <column name="updated_at" value="2017-05-08"/>
+      <column name="reasons" value="Just so"/>
+	  <column name="status" value="1"/>
+    </insert>  
+	
+    <insert tableName="salary_rate_requests">
+      <column name="guid" value="e3498b4c-c3b5-4a8c-8202-4ee117b78b84"/>
+      <column name="user_id" value="2"/>
+      <column name="rate" value="4000"/>
+      <column name="updated_at" value="2019-02-22"/>
+      <column name="reasons" value="I'm good manager"/>
+	  <column name="status" value="1"/>
+    </insert>    
+
+  </changeSet>
+</databaseChangeLog>
